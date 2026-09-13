@@ -1,0 +1,98 @@
+{
+  "held_out_intent": "DisableTrading",
+  "train_n": 640,
+  "validation_n": 160,
+  "test_n": 190,
+  "counts": {
+    "train": {
+      "n": 640,
+      "positive": 320,
+      "negative": 320
+    },
+    "val": {
+      "n": 160,
+      "positive": 80,
+      "negative": 80
+    },
+    "test": {
+      "n": 190,
+      "positive": 95,
+      "negative": 95
+    }
+  },
+  "low_test_positive_count": false,
+  "methods": {
+    "smartintentnn": {
+      "validation": {
+        "auroc": 0.7296875,
+        "auprc": 0.737132336019209,
+        "accuracy": 0.68125,
+        "f1": 0.6871165644171779
+      },
+      "test": {
+        "auroc": 0.6102493074792243,
+        "auprc": 0.555090994482176,
+        "accuracy": 0.5421052631578948,
+        "f1": 0.5245901639344263
+      }
+    },
+    "smartintentv2": {
+      "validation": {
+        "auroc": 0.6633593750000001,
+        "auprc": 0.6431081756954768,
+        "accuracy": 0.575,
+        "f1": 0.6761904761904762
+      },
+      "test": {
+        "auroc": 0.584376731301939,
+        "auprc": 0.528417998592214,
+        "accuracy": 0.6473684210526316,
+        "f1": 0.7196652719665272
+      }
+    },
+    "dbesn": {
+      "validation": {
+        "auroc": 0.79671875,
+        "auprc": 0.7898195956904762,
+        "accuracy": 0.75,
+        "f1": 0.7435897435897436
+      },
+      "test": {
+        "auroc": 0.7888642659279778,
+        "auprc": 0.7241201619701719,
+        "accuracy": 0.7052631578947368,
+        "f1": 0.6744186046511628
+      }
+    },
+    "scmdetector": {
+      "validation": {
+        "auroc": 0.7825,
+        "auprc": 0.7907180812652097,
+        "accuracy": 0.65625,
+        "f1": 0.6961325966850829
+      },
+      "test": {
+        "auroc": 0.8464265927977839,
+        "auprc": 0.8526213813160167,
+        "accuracy": 0.7526315789473684,
+        "f1": 0.7729468599033816
+      }
+    },
+    "smartdna": {
+      "selected_layer": 19,
+      "kneedle_count": 33,
+      "validation": {
+        "auroc": 0.6224999999999999,
+        "auprc": 0.6046812442105555,
+        "accuracy": 0.6,
+        "f1": 0.6483516483516484
+      },
+      "test": {
+        "auroc": 0.6029916897506925,
+        "auprc": 0.5877547181787495,
+        "accuracy": 0.531578947368421,
+        "f1": 0.48554913294797686
+      }
+    }
+  }
+}

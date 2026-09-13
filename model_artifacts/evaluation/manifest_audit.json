@@ -1,0 +1,302 @@
+{
+  "protocol": "exclusive test-positive owner assignment with per-fold class balancing",
+  "source": "/root/autodl-tmp/models/runs/intent_comparison_seed0/selected_union.jsonl",
+  "n_union": 4293,
+  "n_test_unsafe": 763,
+  "test_positive_owner_counts": {
+    "Mint": 85,
+    "DisableTrading": 95,
+    "Reflection": 95,
+    "Rebase": 43,
+    "Honeypot": 56,
+    "Fee": 96,
+    "Blacklist": 96,
+    "MaxTX": 95,
+    "Reward": 89,
+    "MaxSell": 13
+  },
+  "test_positive_owner_unique_rows": 763,
+  "test_negative_pool_size": 100,
+  "folds": {
+    "Blacklist": {
+      "counts": {
+        "train": {
+          "n": 640,
+          "positive": 320,
+          "negative": 320
+        },
+        "val": {
+          "n": 160,
+          "positive": 80,
+          "negative": 80
+        },
+        "test": {
+          "n": 192,
+          "positive": 96,
+          "negative": 96
+        }
+      },
+      "group_overlap": {
+        "train_val": 0,
+        "train_test": 0,
+        "val_test": 0
+      },
+      "test_positive_definition": "assigned owner intent is active; multi-label positives allowed",
+      "test_negative_definition": "all ten intent labels are zero",
+      "test_positive_owner_is_exclusive": true,
+      "test_negative_pool_reused_across_folds": true
+    },
+    "Mint": {
+      "counts": {
+        "train": {
+          "n": 640,
+          "positive": 320,
+          "negative": 320
+        },
+        "val": {
+          "n": 160,
+          "positive": 80,
+          "negative": 80
+        },
+        "test": {
+          "n": 170,
+          "positive": 85,
+          "negative": 85
+        }
+      },
+      "group_overlap": {
+        "train_val": 0,
+        "train_test": 0,
+        "val_test": 0
+      },
+      "test_positive_definition": "assigned owner intent is active; multi-label positives allowed",
+      "test_negative_definition": "all ten intent labels are zero",
+      "test_positive_owner_is_exclusive": true,
+      "test_negative_pool_reused_across_folds": true
+    },
+    "Honeypot": {
+      "counts": {
+        "train": {
+          "n": 640,
+          "positive": 320,
+          "negative": 320
+        },
+        "val": {
+          "n": 160,
+          "positive": 80,
+          "negative": 80
+        },
+        "test": {
+          "n": 112,
+          "positive": 56,
+          "negative": 56
+        }
+      },
+      "group_overlap": {
+        "train_val": 0,
+        "train_test": 0,
+        "val_test": 0
+      },
+      "test_positive_definition": "assigned owner intent is active; multi-label positives allowed",
+      "test_negative_definition": "all ten intent labels are zero",
+      "test_positive_owner_is_exclusive": true,
+      "test_negative_pool_reused_across_folds": true
+    },
+    "Fee": {
+      "counts": {
+        "train": {
+          "n": 640,
+          "positive": 320,
+          "negative": 320
+        },
+        "val": {
+          "n": 160,
+          "positive": 80,
+          "negative": 80
+        },
+        "test": {
+          "n": 192,
+          "positive": 96,
+          "negative": 96
+        }
+      },
+      "group_overlap": {
+        "train_val": 0,
+        "train_test": 0,
+        "val_test": 0
+      },
+      "test_positive_definition": "assigned owner intent is active; multi-label positives allowed",
+      "test_negative_definition": "all ten intent labels are zero",
+      "test_positive_owner_is_exclusive": true,
+      "test_negative_pool_reused_across_folds": true
+    },
+    "DisableTrading": {
+      "counts": {
+        "train": {
+          "n": 640,
+          "positive": 320,
+          "negative": 320
+        },
+        "val": {
+          "n": 160,
+          "positive": 80,
+          "negative": 80
+        },
+        "test": {
+          "n": 190,
+          "positive": 95,
+          "negative": 95
+        }
+      },
+      "group_overlap": {
+        "train_val": 0,
+        "train_test": 0,
+        "val_test": 0
+      },
+      "test_positive_definition": "assigned owner intent is active; multi-label positives allowed",
+      "test_negative_definition": "all ten intent labels are zero",
+      "test_positive_owner_is_exclusive": true,
+      "test_negative_pool_reused_across_folds": true
+    },
+    "MaxSell": {
+      "counts": {
+        "train": {
+          "n": 640,
+          "positive": 320,
+          "negative": 320
+        },
+        "val": {
+          "n": 160,
+          "positive": 80,
+          "negative": 80
+        },
+        "test": {
+          "n": 26,
+          "positive": 13,
+          "negative": 13
+        }
+      },
+      "group_overlap": {
+        "train_val": 0,
+        "train_test": 0,
+        "val_test": 0
+      },
+      "test_positive_definition": "assigned owner intent is active; multi-label positives allowed",
+      "test_negative_definition": "all ten intent labels are zero",
+      "test_positive_owner_is_exclusive": true,
+      "test_negative_pool_reused_across_folds": true
+    },
+    "MaxTX": {
+      "counts": {
+        "train": {
+          "n": 640,
+          "positive": 320,
+          "negative": 320
+        },
+        "val": {
+          "n": 160,
+          "positive": 80,
+          "negative": 80
+        },
+        "test": {
+          "n": 190,
+          "positive": 95,
+          "negative": 95
+        }
+      },
+      "group_overlap": {
+        "train_val": 0,
+        "train_test": 0,
+        "val_test": 0
+      },
+      "test_positive_definition": "assigned owner intent is active; multi-label positives allowed",
+      "test_negative_definition": "all ten intent labels are zero",
+      "test_positive_owner_is_exclusive": true,
+      "test_negative_pool_reused_across_folds": true
+    },
+    "Reflection": {
+      "counts": {
+        "train": {
+          "n": 640,
+          "positive": 320,
+          "negative": 320
+        },
+        "val": {
+          "n": 160,
+          "positive": 80,
+          "negative": 80
+        },
+        "test": {
+          "n": 190,
+          "positive": 95,
+          "negative": 95
+        }
+      },
+      "group_overlap": {
+        "train_val": 0,
+        "train_test": 0,
+        "val_test": 0
+      },
+      "test_positive_definition": "assigned owner intent is active; multi-label positives allowed",
+      "test_negative_definition": "all ten intent labels are zero",
+      "test_positive_owner_is_exclusive": true,
+      "test_negative_pool_reused_across_folds": true
+    },
+    "Reward": {
+      "counts": {
+        "train": {
+          "n": 640,
+          "positive": 320,
+          "negative": 320
+        },
+        "val": {
+          "n": 160,
+          "positive": 80,
+          "negative": 80
+        },
+        "test": {
+          "n": 178,
+          "positive": 89,
+          "negative": 89
+        }
+      },
+      "group_overlap": {
+        "train_val": 0,
+        "train_test": 0,
+        "val_test": 0
+      },
+      "test_positive_definition": "assigned owner intent is active; multi-label positives allowed",
+      "test_negative_definition": "all ten intent labels are zero",
+      "test_positive_owner_is_exclusive": true,
+      "test_negative_pool_reused_across_folds": true
+    },
+    "Rebase": {
+      "counts": {
+        "train": {
+          "n": 640,
+          "positive": 320,
+          "negative": 320
+        },
+        "val": {
+          "n": 160,
+          "positive": 80,
+          "negative": 80
+        },
+        "test": {
+          "n": 86,
+          "positive": 43,
+          "negative": 43
+        }
+      },
+      "group_overlap": {
+        "train_val": 0,
+        "train_test": 0,
+        "val_test": 0
+      },
+      "test_positive_definition": "assigned owner intent is active; multi-label positives allowed",
+      "test_negative_definition": "all ten intent labels are zero",
+      "test_positive_owner_is_exclusive": true,
+      "test_negative_pool_reused_across_folds": true
+    }
+  }
+}

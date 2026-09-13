@@ -1,0 +1,26 @@
+{
+  "status": "complete",
+  "seed": 0,
+  "main_methods": [
+    "ordinary_probe",
+    "smartintentnn",
+    "smartintentv2",
+    "dbesn",
+    "scmdetector",
+    "honeytoken_detector",
+    "smartdna"
+  ],
+  "intents": [
+    "Blacklist",
+    "Mint",
+    "Honeypot",
+    "Fee",
+    "DisableTrading",
+    "MaxSell",
+    "MaxTX",
+    "Reflection",
+    "Reward",
+    "Rebase"
+  ],
+  "final_output_audit_passed": true
+}
