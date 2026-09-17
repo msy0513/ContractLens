@@ -30,11 +30,5 @@ runs/**/tensorboard/
 runs/external_baselines/SmartIntent-py/.git/
 runs/external_baselines/web3-sekit/.git/
 
-# Keep the original experiment workspace out of future `git add .` commands.
-# The publishable snapshots live under model_sources/ and model_artifacts/.
-/runs/
-/base/
-/*.pdf
-
 # Local GitHub/API tooling files
 .github_local/
