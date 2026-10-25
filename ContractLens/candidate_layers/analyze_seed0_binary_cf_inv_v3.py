@@ -249,6 +249,8 @@ def main():
     parser.add_argument("--base-metrics", required=False)
     parser.add_argument("--output", required=False)
     parser.add_argument("--model-name", default=MODEL_NAME)
+    parser.add_argument("--probe", default="logistic_regression")
+    parser.add_argument("--seed", type=int, default=0)
     args = parser.parse_args()
     STAGE = Path(args.stage)
     CF_MANIFEST = Path(args.cf_manifest) if args.cf_manifest else STAGE / "data_cf/pair_manifest.jsonl"
@@ -276,12 +278,25 @@ def main():
     # Legacy CodeGemma input contains one row/layer named ``val_auroc``;
     # parameterized runs emit one row for each split and use ``auroc``.
     if baseline_rows and "split" in baseline_rows[0]:
-        baseline = {int(row["layer"]): {"val_auroc": row["auroc"]}
-                    for row in baseline_rows if row["split"] == "val"}
-        test_baseline = {int(row["layer"]): row for row in baseline_rows if row["split"] == "test"}
+        selected_probe_rows = [
+            row for row in baseline_rows
+            if row["probe"] == args.probe
+            and int(row.get("seed", args.seed)) == args.seed
+        ] if "probe" in baseline_rows[0] else baseline_rows
+        validation_rows = [row for row in selected_probe_rows if row["split"] == "val"]
+        test_rows = [row for row in selected_probe_rows if row["split"] == "test"]
+        baseline = {int(row["layer"]): {"val_auroc": row["auroc"]} for row in validation_rows}
+        test_baseline = {int(row["layer"]): row for row in test_rows}
+        if len(baseline) != len(validation_rows):
+            raise ValueError(
+                f"Expected one validation row per layer for probe={args.probe}, seed={args.seed}; "
+                "filter the metrics file to the intended probe/seed."
+            )
     else:
         baseline = {int(row["layer"]): row for row in baseline_rows}
         test_baseline = baseline
+    if not baseline:
+        raise ValueError(f"No validation metrics found for probe={args.probe}, seed={args.seed}")
     max_validation_auroc = max(float(row["val_auroc"]) for row in baseline.values())
     validation_auroc_threshold = max_validation_auroc - LPROB_DELTA
     l_prob = {
@@ -406,7 +421,7 @@ def main():
         "L_critical": sorted(l_critical),
         "selection_uses_test": False,
         "thresholds": {
-            "L_prob": "Validation AUROC >= max Validation AUROC - 0.008",
+        "L_prob": f"{args.probe} seed {args.seed}: Validation AUROC >= max Validation AUROC - 0.008",
             "L_cf": "ten-intent macro local adjusted ratio above Train surface-null 99%, adjusted ratio and development/validation CI lower >= 1.5, and development/validation unsafe probability-drop CI lower >= 0.02",
             "L_inv": {
                 "centered_cosine_and_ci_lower": TAU_CENTERED_COSINE,

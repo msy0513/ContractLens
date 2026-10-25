@@ -39,6 +39,33 @@ def split_indices(labels, groups, seed):
     return np.asarray(train), np.asarray(val), np.asarray(test)
 
 
+def split_indices_from_manifest(rows, manifest_path):
+    """Map the fixed group-aware manifest split onto task-row positions."""
+    with open(manifest_path, encoding="utf-8") as handle:
+        manifest = json.load(handle)
+    by_feature = {int(row.get("feature_index", i)): i for i, row in enumerate(rows)}
+    split_indices = {name: [] for name in ("train", "val", "test")}
+    seen = set()
+    for record in manifest["records"]:
+        feature_index = int(record["feature_index"])
+        if feature_index not in by_feature:
+            continue
+        if feature_index in seen:
+            raise ValueError(f"Duplicate feature_index in split manifest: {feature_index}")
+        seen.add(feature_index)
+        row_index = by_feature[feature_index]
+        if int(record["label"]) != int(rows[row_index]["label"]):
+            raise ValueError(f"Label mismatch for feature_index={feature_index}")
+        split_indices[record["split"]].append(row_index)
+    result = {name: np.asarray(values, dtype=np.int64) for name, values in split_indices.items()}
+    if any(len(result[name]) == 0 for name in result):
+        raise ValueError("The split manifest did not map to non-empty train/val/test task rows")
+    if seen != set(by_feature):
+        missing = sorted(set(by_feature) - seen)
+        raise ValueError(f"Split manifest is missing {len(missing)} task rows; examples={missing[:10]}")
+    return result
+
+
 def metrics(y, score, pred):
     return {
         "f1": float(f1_score(y, pred)),
@@ -95,6 +122,10 @@ def main():
     ap.add_argument("--data-path", required=True)
     ap.add_argument("--output-dir", required=True)
     ap.add_argument("--seeds", default="0,1,2")
+    ap.add_argument(
+        "--split-manifest",
+        help="Optional fixed group-aware split manifest; when supplied, all estimator seeds use these same partitions.",
+    )
     args = ap.parse_args()
 
     out = Path(args.output_dir)
@@ -115,13 +146,17 @@ def main():
             groups.append(f"row-{i}")
     groups = groups if has_group else None
     seeds = [int(x) for x in args.seeds.split(",") if x.strip()]
+    fixed_split = split_indices_from_manifest(rows, args.split_manifest) if args.split_manifest else None
 
     all_rows = []
     layer_paths = sorted(Path(args.features_dir).glob("layer_*.npy"))
     if not layer_paths:
         raise RuntimeError(f"No layer feature files found in {args.features_dir}")
     for seed in seeds:
-        train_idx, val_idx, test_idx = split_indices(labels, groups, seed)
+        if fixed_split is None:
+            train_idx, val_idx, test_idx = split_indices(labels, groups, seed)
+        else:
+            train_idx, val_idx, test_idx = (fixed_split[name] for name in ("train", "val", "test"))
         for layer_path in layer_paths:
             layer = int(layer_path.stem.split("_")[-1])
             X_all = np.load(layer_path, mmap_mode="r")
@@ -178,6 +213,8 @@ def main():
                 "features_dir": args.features_dir,
                 "seeds": seeds,
                 "group_aware": bool(groups is not None),
+                "split_manifest": args.split_manifest,
+                "fixed_split_shared_across_estimator_seeds": bool(fixed_split is not None),
                 "n_rows": int(len(rows)),
                 "label_counts": {"0": int((labels == 0).sum()), "1": int((labels == 1).sum())},
             },
