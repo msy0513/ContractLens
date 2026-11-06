@@ -114,10 +114,10 @@ Replace `<critical-layer-ids>` with the `L_critical` layer IDs in `results_stric
 If you find this work useful, please cite:
 
 ```bibtex
-@inproceedings{miao2027contractlens,
+@article{miao2026contractlens,
   title={ContractLens: Latent Security Knowledge for Malicious Smart Contract Detection},
   author={Miao, Shuyi and Huang, Xinyi and Qiu, Wangjie and Shen, Fei and He, Jinchun and Zheng, Zhiming and Chua, Tat-Seng},
-  booktitle={International Conference on Learning Representations},
-  year={2027}
+  journal={arXiv preprint arXiv:2610.04992},
+  year={2026}
 }
 ```
